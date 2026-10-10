@@ -1,95 +1,497 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111f">
-  <meta name="description" content="SONZ NORTHERN — ruang pribadi untuk berbagi cerita, karya, foto, dan dokumen.">
-  <title>SONZ NORTHERN — Personal Website</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05070d">
+  <meta name="description" content="SONZ NORTHERN - Personal Cyberpunk Website">
+  <title>SONZ NORTHERN</title>
+
+  <style>
+    :root {
+      --bg: #05070d;
+      --cyan: #00e5ff;
+      --pink: #ff245f;
+      --white: #f4f7ff;
+      --muted: #a5b0c8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 15% 15%, #00e5ff1c, transparent 40%),
+        radial-gradient(ellipse at 85% 75%, #ff245f17, transparent 40%),
+        var(--bg);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* GRID BACKGROUND */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(#00e5ff0b 1px, transparent 1px),
+        linear-gradient(90deg, #00e5ff0b 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    header {
+      width: min(1100px, 90%);
+      margin: auto;
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: inline-flex;
+      flex-direction: column;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 5px;
+      filter: drop-shadow(0 0 10px #00e5ff44);
+    }
+
+    .logo-main {
+      position: relative;
+      font-size: 27px;
+      color: white;
+    }
+
+    .logo-sub {
+      position: relative;
+      margin-top: 7px;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 6px;
+    }
+
+    /* GLITCH LOGO */
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .glitch::before {
+      color: var(--pink);
+      animation: glitch1 3s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: var(--cyan);
+      animation: glitch2 2.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch1 {
+      0%, 90%, 100% {
+        clip-path: inset(50% 0 50% 0);
+        transform: translate(0);
+      }
+      92% {
+        clip-path: inset(10% 0 70% 0);
+        transform: translate(-3px, 1px);
+      }
+      94% {
+        clip-path: inset(60% 0 15% 0);
+        transform: translate(3px, -1px);
+      }
+      96% {
+        clip-path: inset(25% 0 45% 0);
+        transform: translate(-2px, 0);
+      }
+    }
+
+    @keyframes glitch2 {
+      0%, 85%, 100% {
+        clip-path: inset(50% 0 50% 0);
+        transform: translate(0);
+      }
+      87% {
+        clip-path: inset(65% 0 10% 0);
+        transform: translate(3px, 0);
+      }
+      90% {
+        clip-path: inset(10% 0 65% 0);
+        transform: translate(-3px, 1px);
+      }
+      93% {
+        clip-path: inset(40% 0 30% 0);
+        transform: translate(2px, -1px);
+      }
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+      text-shadow: 0 0 12px var(--cyan);
+    }
+
+    /* HERO */
+    .hero {
+      width: min(1100px, 90%);
+      min-height: 76vh;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 0;
+    }
+
+    .hero-content {
+      animation: appear 1.2s ease both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      margin-bottom: 28px;
+      border: 1px solid #00e5ff55;
+      border-radius: 50px;
+      background: #00e5ff0c;
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--cyan);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .3;
+        box-shadow: 0 0 2px var(--cyan);
+      }
+    }
+
+    h1 {
+      font-size: clamp(48px, 10vw, 115px);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -5px;
+      text-shadow: 0 0 35px #00e5ff1c;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 12px;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--cyan);
+      text-shadow: 0 0 25px #00e5ff26;
+    }
+
+    .description {
+      max-width: 600px;
+      margin: 30px auto;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    /* BUTTONS */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 25px;
+      border: 1px solid var(--cyan);
+      border-radius: 5px;
+      background: var(--cyan);
+      color: #05070d;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      transition: .3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px #00e5ff66;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border-color: #ffffff55;
+    }
+
+    .btn-outline:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    /* CONTENT CARDS */
+    .section {
+      width: min(900px, 90%);
+      margin: 0 auto 80px;
+      scroll-margin-top: 25px;
+    }
+
+    .panel {
+      padding: clamp(25px, 5vw, 45px);
+      border: 1px solid #00e5ff30;
+      border-radius: 12px;
+      background: #0c1220c9;
+      box-shadow: 0 15px 50px #0005;
+      backdrop-filter: blur(10px);
+      transition: border-color .3s, transform .3s;
+    }
+
+    .panel:hover {
+      border-color: #00e5ff77;
+      transform: translateY(-3px);
+    }
+
+    .panel h2 {
+      margin-bottom: 18px;
+      font-size: 25px;
+      color: var(--cyan);
+    }
+
+    .panel p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #dce7f9;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 30px 15px;
+      border-top: 1px solid #ffffff12;
+      text-align: center;
+      color: #77839b;
+      font-size: 11px;
+      letter-spacing: 2px;
+      line-height: 2;
+    }
+
+    footer span {
+      color: var(--cyan);
+    }
+
+    /* SCANLINES */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      opacity: .06;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        white 4px
+      );
+    }
+
+    /* MOBILE */
+    @media (max-width: 650px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      .hero {
+        min-height: 65vh;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .badge {
+        font-size: 9px;
+        letter-spacing: 2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <header class="site-header">
-    <a class="logo" href="#">SONZ NORTHERN</div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
-    <nav id="navMenu">
-      <a href="#beranda">Beranda</a><a href="#tentang">Tentang</a><a href="#galeri">Galeri</a><a href="#upload">Upload</a><a href="#kontak">Kontak</a>
-      <button id="themeToggle" class="theme-toggle" aria-label="Ganti tema">☾</button>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header id="beranda">
+    <a href="#beranda" class="logo" aria-label="SONZ NORTHERN">
+      <span class="logo-main glitch" data-text="SONZ">SONZ</span>
+      <span class="logo-sub glitch" data-text="NORTHERN">NORTHERN</span>
+    </a>
+
+    <nav aria-label="Navigasi utama">
+      <a href="#beranda">Beranda</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#kontak">Kontak</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero section" id="beranda">
-      <div class="hero-copy">
-        <p class="eyebrow">WELCOME TO</p>
-        <h1>SONZ<br><span>NORTHERN</span></h1>
-        <p class="hero-description">Tempat berbagi cerita, karya, dan hal-hal yang saya sukai.</p>
-        <div class="hero-actions">
-          <a class="button primary" id="heroWhatsapp" href="#kontak">◉ Hubungi Saya</a>
-          <a class="button ghost" href="#galeri">Lihat Galeri ↘</a>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge">
+          <span class="status-dot"></span>
+          DIGITAL SPACE // ONLINE
+        </div>
+
+        <h1>
+          SONZ
+          <span>NORTHERN</span>
+        </h1>
+
+        <p class="description">
+          Welcome to my digital space. Dunia personal dengan nuansa
+          cyberpunk, neon, dan glitch. Built different. Stay original.
+        </p>
+
+        <div class="buttons">
+          <a href="#tentang" class="btn">JELAJAHI</a>
+          <a href="#kontak" class="btn btn-outline">KONTAK</a>
         </div>
       </div>
-      <div class="hero-art" aria-label="Ilustrasi pegunungan malam">
-        <div class="moon"></div><div class="stars"></div>
-        <div class="mountain mountain-back"></div><div class="mountain mountain-front"></div>
-        <div class="person"><span></span></div>
-        <div class="art-label">KEEP MOVING FORWARD</div>
-      </div>
-      <div class="stats">
-        <div class="stat"><span class="stat-icon">▧</span><strong id="photoCount">0</strong><small>Foto & gambar</small></div>
-        <div class="stat"><span class="stat-icon">▤</span><strong id="docCount">0</strong><small>Dokumen</small></div>
-        <div class="stat"><span class="stat-icon">✦</span><strong>SONZ</strong><small>Personal space</small></div>
+    </section>
+
+    <section class="section" id="tentang">
+      <div class="panel">
+        <h2>// ABOUT SONZ NORTHERN</h2>
+        <p>
+          SONZ NORTHERN adalah ruang digital personal dengan desain
+          futuristik, efek neon, dan animasi glitch. Website ini dibuat
+          simpel, modern, dan responsif untuk desktop maupun perangkat mobile.
+        </p>
+
+        <div class="system-status">
+          <span class="status-dot"></span>
+          SYSTEM STATUS: ONLINE
+        </div>
       </div>
     </section>
 
-    <section class="section about" id="tentang">
-      <div>
-        <p class="eyebrow">SEDIKIT TENTANG SAYA</p>
-        <h2>Halo, saya <span>Sony.</span></h2>
-        <p class="muted">Selamat datang di ruang digital pribadi saya. Di sini saya berbagi foto, karya, koleksi, dan hal-hal menarik yang ingin saya simpan atau bagikan.</p>
-        <p class="muted">Website ini masih bisa kamu ubah sesuka hati — tambahkan cerita, tautan media sosial, foto, atau dokumen favoritmu.</p>
-        <a class="button primary" href="#galeri">Jelajahi Website</a>
+    <section class="section" id="kontak">
+      <div class="panel">
+        <h2>// CONTACT</h2>
+        <p>
+          Terima kasih sudah mengunjungi SONZ NORTHERN.
+          Link media sosial dapat ditambahkan di bagian ini sesuai kebutuhan.
+        </p>
       </div>
-      <div class="quote-card">
-        <div class="quote-mark">“</div>
-        <p>Terus melangkah, sejauh apa pun jalannya.</p>
-        <span>— SONZ NORTHERN</span>
-      </div>
-    </section>
-
-    <section class="section" id="galeri">
-      <div class="section-heading">
-        <div><p class="eyebrow">KOLEKSI PILIHAN</p><h2>Galeri <span>Saya</span></h2><p class="muted">Gambar yang kamu tambahkan di bagian upload akan tampil di sini selama halaman terbuka.</p></div>
-      </div>
-      <div class="filters" id="filters">
-        <button class="filter active" data-filter="all">Semua</button>
-        <button class="filter" data-filter="image">Gambar</button>
-        <button class="filter" data-filter="document">Dokumen</button>
-      </div>
-      <div id="galleryGrid" class="gallery-grid">
-        <div class="empty-state" id="emptyState"><span>✧</span><h3>Galeri masih kosong</h3><p>Tambahkan gambar atau dokumen lewat panel upload di bawah.</p></div>
-      </div>
-    </section>
-
-    <section class="section upload-section" id="upload">
-      <div class="section-heading"><div><p class="eyebrow">TAMBAHKAN KOLEKSI</p><h2>Upload <span>File</span></h2><p class="muted">Pilih gambar atau dokumen dari perangkat kamu.</p></div></div>
-      <div class="upload-panel">
-        <div class="upload-icon">↑</div>
-        <h3>Masukkan file ke galeri</h3>
-        <p class="muted">Format gambar: JPG, PNG, GIF, WEBP. Dokumen: PDF, DOC, DOCX, XLS, XLSX, TXT.</p>
-        <label class="button primary file-button">Pilih File<input id="fileInput" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" multiple></label>
-        <p class="upload-note">Catatan: upload ini hanya tampil di browser/perangkat saat ini. File tidak tersimpan permanen dan tidak otomatis bisa dilihat pengunjung lain.</p>
-        <div id="uploadStatus" class="upload-status" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="section contact" id="kontak">
-      <div><p class="eyebrow">TERHUBUNG</p><h2>Mari <span>terhubung.</span></h2><p class="muted">Ada pertanyaan atau ingin ngobrol? Kirim pesan lewat WhatsApp.</p></div>
-      <a class="button primary large" id="contactWhatsapp" href="#" target="_blank" rel="noopener">◉ Chat via WhatsApp</a>
     </section>
   </main>
 
-  <footer><a class="brand" href="#beranda">SONZ <span>NORTHERN</span></a><p>© <span id="year"></span> SONZ NORTHERN. Dibuat dengan semangat.</p><a href="#beranda" class="back-top">Kembali ke atas ↑</a></footer>
-  <script src="script.js"></script>
+  <footer>
+    © <span id="year"></span> SONZ NORTHERN
+    <br>
+    DESIGNED FOR THE DIGITAL WORLD
+  </footer>
+
+  <script>
+    "use strict";
+
+    const yearElement = document.getElementById("year");
+
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+  </script>
 </body>
 </html>
